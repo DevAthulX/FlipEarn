@@ -1,7 +1,8 @@
 import { BadgeCheck, LineChart, MapPin, User } from "lucide-react";
 import { platformIcons } from "../assets/assets";
 import { useNavigate } from 'react-router-dom';
-const LlstingCard = ({listing}) => {
+import { useState } from "react";
+const ListingCard = ({listing}) => {
     const currency = import.meta.env.VITE_CURRENCY || '$';
      const navigate = useNavigate()
   return (
@@ -70,4 +71,4 @@ const LlstingCard = ({listing}) => {
     </div>
   )
 }
-export default LlstingCard
+export default ListingCard

@@ -1,6 +1,6 @@
 import ListingDetail from "../pages/ListingDetail"
 import Title from "./Title"
-import ListingCard from '../components/LlstingCard'
+import ListingCard from '../components/ListingCard'
 import {useSelector} from 'react-redux'
 const LatestListings = () => {
   const {listings} = useSelector(state => state.listing)
