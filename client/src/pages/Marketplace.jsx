@@ -86,17 +86,17 @@
 //   )
 // }
 // export default Marketplace
-import {ArrowLeftIcon, Filter} from 'lucide-react'
+import { ArrowLeftIcon, Filter } from 'lucide-react'
 import { useState, useEffect } from 'react'
-import {useSelector} from 'react-redux'
-import {useNavigate, useSearchParams} from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import ListingCard from '../components/ListingCard'
 import FilterSidebar from '../components/FilterSidebar'
 
 const Marketplace = () => {
     const [searchParams] = useSearchParams()
     const search = searchParams.get("search")
-    const {listings} = useSelector(state => state.listing)
+    const { listings } = useSelector(state => state.listing)
     const navigate = useNavigate()
     const [showFilterPhone, setshowFilterPhone] = useState(false)
     const [filters, setFilters] = useState({
@@ -113,7 +113,7 @@ const Marketplace = () => {
         if (filters.platform && filters.platform.length > 0) {
             if (!filters.platform.includes(listing.platform)) return false
         }
-        
+
         // Price filter
         if (filters.maxPrice) {
             if (listing.price > filters.maxPrice) return false
@@ -123,18 +123,18 @@ const Marketplace = () => {
         if (filters.minFollowers) {
             if (listing.followers_count < filters.minFollowers) return false
         }
-        
+
         // Niche filter - fixed: niche is a string, not an array
         if (filters.niche) {
             if (listing.niche !== filters.niche) return false
         }
-        
+
         // Verified filter
         if (filters.verified && listing.verified !== filters.verified) return false
-        
+
         // Monetized filter
         if (filters.monitised && listing.monitised !== filters.monitised) return false
-        
+
         // Search filter
         if (search) {
             const trimmed = search.trim().toLowerCase()
@@ -145,44 +145,44 @@ const Marketplace = () => {
                 listing.platform,
                 listing.niche
             ].map(field => field?.toLowerCase() || "")
-            
-            const matchFound = searchableFields.some(field => 
+
+            const matchFound = searchableFields.some(field =>
                 field.includes(trimmed)
             )
-            
+
             if (!matchFound) return false
         }
-        
+
         return true
     })
 
     return (
         <div className="px-6 md:px-16 lg:px-24 xl:px-32">
             <div className="flex items-center justify-between text-slate-500">
-                <button 
-                    onClick={() => {navigate('/'); scrollTo(0, 0)}} 
+                <button
+                    onClick={() => { navigate('/'); scrollTo(0, 0) }}
                     className='flex items-center gap-2 py-5'
-                > 
-                    <ArrowLeftIcon className="size-4"/>  
+                >
+                    <ArrowLeftIcon className="size-4" />
                     Back to Home
                 </button>
-                <button 
-                    className='flex sm:hidden items-center gap-2 py-5' 
+                <button
+                    className='flex sm:hidden items-center gap-2 py-5'
                     onClick={() => setshowFilterPhone(true)}
-                > 
-                    <Filter className='size-4'/>
+                >
+                    <Filter className='size-4' />
                     Filters
                 </button>
             </div>
-            
+
             <div className='relative flex items-start justify-between gap-8 pb-8'>
-                <FilterSidebar 
-                    setFilters={setFilters} 
-                    filters={filters} 
-                    showFilterPhone={showFilterPhone} 
+                <FilterSidebar
+                    setFilters={setFilters}
+                    filters={filters}
+                    showFilterPhone={showFilterPhone}
                     setshowFilterPhone={setshowFilterPhone}
                 />
-                
+
                 <div className='flex-1 grid grid-cols-1 md:grid-cols-2 gap-4'>
                     {filteredListings.length > 0 ? (
                         filteredListings

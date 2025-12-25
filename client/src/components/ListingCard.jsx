@@ -63,9 +63,9 @@ const ListingCard = ({listing}) => {
                               {listing.price.toLocaleString()}
                             </span>
                          </div>
-                         <button onClick={() => {navigate('/listing/${listing.id}'); scrollTo(0,0)}} className="px-3 py-3 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-700 transition">
-                          More Details
-                         </button>
+                      <button onClick={() => {navigate(`/listing/${listing.id}`); scrollTo(0,0)}} className="px-3 py-3 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-700 transition">
+  More Details
+</button>
                </div>
            </div>
     </div>

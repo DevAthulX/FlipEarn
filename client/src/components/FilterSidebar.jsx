@@ -47,7 +47,7 @@
 
 // monitised: false,
 //             })
-        
+
 //     }
 //     const platforms =[
 //         {value: "youtube", label: "youtube"},
@@ -220,12 +220,12 @@ import { ChevronDown, Filter, X } from "lucide-react"
 import { useState, useEffect } from "react"
 import { useNavigate, useSearchParams } from "react-router-dom"
 
-const FilterSidebar = ({showFilterPhone, setshowFilterPhone, filters, setFilters}) => {
+const FilterSidebar = ({ showFilterPhone, setshowFilterPhone, filters, setFilters }) => {
     const navigate = useNavigate()
     const [searchParams, setSearchParams] = useSearchParams()
     const [search, setSearch] = useState(searchParams.get("search") || "")
     const currency = import.meta.env.VITE_CURRENCY || '$'
-    
+
     // Sync filters with URL on mount
     useEffect(() => {
         const urlFilters = {
@@ -238,11 +238,11 @@ const FilterSidebar = ({showFilterPhone, setshowFilterPhone, filters, setFilters
         }
         setFilters(urlFilters)
     }, [])
-    
+
     // Update URL when filters change
     useEffect(() => {
         const params = new URLSearchParams()
-        
+
         if (search) params.set("search", search)
         if (filters.platform && filters.platform.length > 0) params.set("platform", filters.platform.join(","))
         if (filters.maxPrice && filters.maxPrice !== 100000) params.set("maxPrice", filters.maxPrice.toString())
@@ -250,21 +250,21 @@ const FilterSidebar = ({showFilterPhone, setshowFilterPhone, filters, setFilters
         if (filters.niche) params.set("niche", filters.niche)
         if (filters.verified) params.set("verified", "true")
         if (filters.monitised) params.set("monitised", "true")
-        
+
         setSearchParams(params)
     }, [filters, search])
 
     const onChangeSearch = (e) => {
         const value = e.target.value
         setSearch(value)
-        
+
         if (!value) {
             const params = new URLSearchParams(searchParams)
             params.delete("search")
             setSearchParams(params)
         }
     }
-    
+
     const [expandedSections, setExpandedSections] = useState({
         platform: true,
         price: true,
@@ -272,15 +272,15 @@ const FilterSidebar = ({showFilterPhone, setshowFilterPhone, filters, setFilters
         niche: true,
         status: true,
     })
-    
+
     const onFiltersChange = (newFilters) => {
-        setFilters({...filters, ...newFilters})
+        setFilters({ ...filters, ...newFilters })
     }
 
     const toggleSection = (section) => {
-        setExpandedSections((prev) => ({...prev, [section]: !prev[section]}))
+        setExpandedSections((prev) => ({ ...prev, [section]: !prev[section] }))
     }
-    
+
     const onClearFilters = () => {
         setSearch("")
         setFilters({
@@ -293,18 +293,18 @@ const FilterSidebar = ({showFilterPhone, setshowFilterPhone, filters, setFilters
         })
         navigate('/marketplace')
     }
-    
+
     const platforms = [
-        {value: "youtube", label: "YouTube"},
-        {value: "tiktok", label: "TikTok"},
-        {value: "facebook", label: "Facebook"},
-        {value: "twitter", label: "Twitter"},
-        {value: "instagram", label: "Instagram"},
-        {value: "linkedin", label: "LinkedIn"},
-        {value: "twitch", label: "Twitch"},
-        {value: "discord", label: "Discord"},
+        { value: "youtube", label: "YouTube" },
+        { value: "tiktok", label: "TikTok" },
+        { value: "facebook", label: "Facebook" },
+        { value: "twitter", label: "Twitter" },
+        { value: "instagram", label: "Instagram" },
+        { value: "linkedin", label: "LinkedIn" },
+        { value: "twitch", label: "Twitch" },
+        { value: "discord", label: "Discord" },
     ]
-    
+
     const niches = [
         { value: "lifestyle", label: "Lifestyle" },
         { value: "fitness", label: "Fitness" },
@@ -337,8 +337,8 @@ const FilterSidebar = ({showFilterPhone, setshowFilterPhone, filters, setFilters
                             onClick={onClearFilters}
                             className="size-6 text-gray-500 hover:text-gray-700 p-1 hover:bg-gray-100 rounded transition-colors cursor-pointer"
                         />
-                        <button 
-                            onClick={() => setshowFilterPhone(false)} 
+                        <button
+                            onClick={() => setshowFilterPhone(false)}
                             className="sm:hidden text-sm border text-gray-700 px-3 py-1 rounded"
                         >
                             Apply
@@ -346,45 +346,45 @@ const FilterSidebar = ({showFilterPhone, setshowFilterPhone, filters, setFilters
                     </div>
                 </div>
             </div>
-            
+
             <div className="p-4 space-y-6 sm:max-h-[calc(100vh-200px)] overflow-y-scroll no-scrollbar">
                 {/* Search Bar */}
                 <div className="flex items-center justify-between">
-                    <input 
-                        type="text" 
-                        placeholder="Search by username, platform, niche, etc." 
-                        className="w-full text-sm px-3 py-2 border border-gray-300 rounded-md outline-indigo-500" 
-                        onChange={onChangeSearch} 
+                    <input
+                        type="text"
+                        placeholder="Search by username, platform, niche, etc."
+                        className="w-full text-sm px-3 py-2 border border-gray-300 rounded-md outline-indigo-500"
+                        onChange={onChangeSearch}
                         value={search}
                     />
                 </div>
-                
+
                 {/* Platform Filter */}
                 <div>
-                    <button 
-                        onClick={() => toggleSection("platform")}   
+                    <button
+                        onClick={() => toggleSection("platform")}
                         className="flex items-center justify-between w-full mb-3 py-2"
                     >
                         <label className="text-sm font-medium text-gray-800">Platform</label>
-                        <ChevronDown className={`size-4 transition-transform ${expandedSections.platform ? "rotate-180" : ""}`}/>
+                        <ChevronDown className={`size-4 transition-transform ${expandedSections.platform ? "rotate-180" : ""}`} />
                     </button>
                     {expandedSections.platform && (
                         <div className="flex flex-col gap-2">
                             {platforms.map((platform) => (
                                 <label key={platform.value} className="flex items-center gap-2 text-gray-700 text-sm">
-                                    <input 
-                                        type="checkbox" 
-                                        checked={filters.platform?.includes(platform.value) || false} 
+                                    <input
+                                        type="checkbox"
+                                        checked={filters.platform?.includes(platform.value) || false}
                                         onChange={(e) => {
                                             const checked = e.target.checked
                                             const current = filters.platform || []
-                                            const updated = checked 
-                                                ? [...current, platform.value] 
+                                            const updated = checked
+                                                ? [...current, platform.value]
                                                 : current.filter((p) => p !== platform.value)
                                             onFiltersChange({
                                                 platform: updated.length > 0 ? updated : null
                                             })
-                                        }} 
+                                        }}
                                     />
                                     <span>{platform.label}</span>
                                 </label>
@@ -392,27 +392,27 @@ const FilterSidebar = ({showFilterPhone, setshowFilterPhone, filters, setFilters
                         </div>
                     )}
                 </div>
-                
+
                 {/* Price Range */}
                 <div>
-                    <button 
-                        onClick={() => toggleSection("price")}   
+                    <button
+                        onClick={() => toggleSection("price")}
                         className="flex items-center justify-between w-full mb-3 py-2"
                     >
                         <label className="text-sm font-medium text-gray-800">Price Range</label>
-                        <ChevronDown className={`size-4 transition-transform ${expandedSections.price ? "rotate-180" : ""}`}/>
+                        <ChevronDown className={`size-4 transition-transform ${expandedSections.price ? "rotate-180" : ""}`} />
                     </button>
                     {expandedSections.price && (
                         <div className="space-y-3">
-                            <input 
-                                type="range" 
-                                min="0" 
-                                max="100000" 
-                                step="100"  
-                                value={filters.maxPrice || 100000} 
+                            <input
+                                type="range"
+                                min="0"
+                                max="100000"
+                                step="100"
+                                value={filters.maxPrice || 100000}
                                 onChange={(e) => onFiltersChange({
                                     maxPrice: parseInt(e.target.value)
-                                })}  
+                                })}
                                 className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-indigo-600"
                             />
                             <div className="flex items-center justify-between text-sm text-gray-600">
@@ -422,20 +422,20 @@ const FilterSidebar = ({showFilterPhone, setshowFilterPhone, filters, setFilters
                         </div>
                     )}
                 </div>
-                
+
                 {/* Followers Range */}
                 <div>
-                    <button 
-                        onClick={() => toggleSection("followers")}   
+                    <button
+                        onClick={() => toggleSection("followers")}
                         className="flex items-center justify-between w-full mb-3 py-2"
                     >
                         <label className="text-sm font-medium text-gray-800">Minimum Followers</label>
-                        <ChevronDown className={`size-4 transition-transform ${expandedSections.followers ? "rotate-180" : ""}`}/>
+                        <ChevronDown className={`size-4 transition-transform ${expandedSections.followers ? "rotate-180" : ""}`} />
                     </button>
                     {expandedSections.followers && (
-                        <select 
+                        <select
                             value={filters.minFollowers?.toString() || "0"}
-                            onChange={(e) => onFiltersChange({minFollowers: parseInt(e.target.value) || 0})}
+                            onChange={(e) => onFiltersChange({ minFollowers: parseInt(e.target.value) || 0 })}
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-700 outline-indigo-500"
                         >
                             <option value="0">Any amount</option>
@@ -447,20 +447,20 @@ const FilterSidebar = ({showFilterPhone, setshowFilterPhone, filters, setFilters
                         </select>
                     )}
                 </div>
-                
+
                 {/* Niche Filter */}
                 <div>
-                    <button 
-                        onClick={() => toggleSection("niche")}   
+                    <button
+                        onClick={() => toggleSection("niche")}
                         className="flex items-center justify-between w-full mb-3 py-2"
                     >
                         <label className="text-sm font-medium text-gray-800">Niche</label>
-                        <ChevronDown className={`size-4 transition-transform ${expandedSections.niche ? "rotate-180" : ""}`}/>
+                        <ChevronDown className={`size-4 transition-transform ${expandedSections.niche ? "rotate-180" : ""}`} />
                     </button>
                     {expandedSections.niche && (
-                        <select 
+                        <select
                             value={filters.niche || ""}
-                            onChange={(e) => onFiltersChange({niche: e.target.value || null})}
+                            onChange={(e) => onFiltersChange({ niche: e.target.value || null })}
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-700 outline-indigo-500"
                         >
                             <option value="">All niches</option>
@@ -472,31 +472,31 @@ const FilterSidebar = ({showFilterPhone, setshowFilterPhone, filters, setFilters
                         </select>
                     )}
                 </div>
-                
+
                 {/* Verification Status */}
                 <div>
-                    <button 
-                        onClick={() => toggleSection("status")}   
+                    <button
+                        onClick={() => toggleSection("status")}
                         className="flex items-center justify-between w-full mb-3 py-2"
                     >
                         <label className="text-sm font-medium text-gray-800">Account Status</label>
-                        <ChevronDown className={`size-4 transition-transform ${expandedSections.status ? "rotate-180" : ""}`}/>
+                        <ChevronDown className={`size-4 transition-transform ${expandedSections.status ? "rotate-180" : ""}`} />
                     </button>
                     {expandedSections.status && (
                         <div className="space-y-3">
                             <label className="flex items-center space-x-2 cursor-pointer">
-                                <input 
-                                    type="checkbox"  
-                                    checked={filters.verified || false} 
-                                    onChange={(e) => onFiltersChange({verified: e.target.checked})}
+                                <input
+                                    type="checkbox"
+                                    checked={filters.verified || false}
+                                    onChange={(e) => onFiltersChange({ verified: e.target.checked })}
                                 />
                                 <span className="text-sm text-gray-700">Verified accounts only</span>
                             </label>
                             <label className="flex items-center space-x-2 cursor-pointer">
-                                <input 
-                                    type="checkbox"  
-                                    checked={filters.monitised || false} 
-                                    onChange={(e) => onFiltersChange({monitised: e.target.checked})}
+                                <input
+                                    type="checkbox"
+                                    checked={filters.monitised || false}
+                                    onChange={(e) => onFiltersChange({ monitised: e.target.checked })}
                                 />
                                 <span className="text-sm text-gray-700">Monetized accounts only</span>
                             </label>
