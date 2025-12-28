@@ -9,6 +9,7 @@ import MyOrders from './pages/MyOrder'
 import Loading from './pages/Loading'
 import {useLocation} from 'react-router-dom'
 import Navbar from './components/Navbar'
+import ChatBox from "./components/ChatBox"
 const App = () => {
   const {pathname}= useLocation()
   return (
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="/my-orders" element={<MyOrders />}/>
         <Route path="/loading" element={<Loading />}/>
       </Routes>
+      <ChatBox />
     </div>
   )
 }
